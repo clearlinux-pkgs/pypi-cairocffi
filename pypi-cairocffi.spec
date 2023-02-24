@@ -4,7 +4,7 @@
 #
 Name     : pypi-cairocffi
 Version  : 1.4.0
-Release  : 2
+Release  : 3
 URL      : https://files.pythonhosted.org/packages/f4/10/82a8384882b4a7096256ee5c3fba65b6a0be67f08e8de130cd3627edb12f/cairocffi-1.4.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/f4/10/82a8384882b4a7096256ee5c3fba65b6a0be67f08e8de130cd3627edb12f/cairocffi-1.4.0.tar.gz
 Summary  : cffi-based cairo bindings for Python
@@ -56,7 +56,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1677266742
+export SOURCE_DATE_EPOCH=1677269626
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
