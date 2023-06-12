@@ -4,18 +4,18 @@
 # Using build pattern: pyproject
 #
 Name     : pypi-cairocffi
-Version  : 1.5.0
-Release  : 4
-URL      : https://files.pythonhosted.org/packages/28/d6/59ed0aa7f642142db493744c909a59a45e7350277d8987ccfc56cc5244d9/cairocffi-1.5.0.tar.gz
-Source0  : https://files.pythonhosted.org/packages/28/d6/59ed0aa7f642142db493744c909a59a45e7350277d8987ccfc56cc5244d9/cairocffi-1.5.0.tar.gz
+Version  : 1.6.0
+Release  : 5
+URL      : https://files.pythonhosted.org/packages/02/8d/75ebb7a2f6a835e2bc125ce4c667dccc8e40b92507923dfaf8f079c892a5/cairocffi-1.6.0.tar.gz
+Source0  : https://files.pythonhosted.org/packages/02/8d/75ebb7a2f6a835e2bc125ce4c667dccc8e40b92507923dfaf8f079c892a5/cairocffi-1.6.0.tar.gz
 Summary  : cffi-based cairo bindings for Python
 Group    : Development/Tools
 License  : BSD-3-Clause
+Requires: pypi-cairocffi-license = %{version}-%{release}
 Requires: pypi-cairocffi-python = %{version}-%{release}
 Requires: pypi-cairocffi-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
-BuildRequires : pypi(cffi)
-BuildRequires : pypi(setuptools)
+BuildRequires : pypi(flit_core)
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
@@ -25,6 +25,14 @@ cairocffi is a `CFFI`_-based drop-in replacement for Pycairo_,
 a set of Python bindings and object-oriented API for cairo_.
 Cairo is a 2D vector graphics library with support for multiple backends
 including image buffers, PNG, PostScript, PDF, and SVG file output.
+
+%package license
+Summary: license components for the pypi-cairocffi package.
+Group: Default
+
+%description license
+license components for the pypi-cairocffi package.
+
 
 %package python
 Summary: python components for the pypi-cairocffi package.
@@ -47,10 +55,10 @@ python3 components for the pypi-cairocffi package.
 
 
 %prep
-%setup -q -n cairocffi-1.5.0
-cd %{_builddir}/cairocffi-1.5.0
+%setup -q -n cairocffi-1.6.0
+cd %{_builddir}/cairocffi-1.6.0
 pushd ..
-cp -a cairocffi-1.5.0 buildavx2
+cp -a cairocffi-1.6.0 buildavx2
 popd
 
 %build
@@ -58,15 +66,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1679326029
+export SOURCE_DATE_EPOCH=1686582316
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 -m build --wheel --skip-dependency-check --no-isolation
 pushd ../buildavx2/
@@ -82,6 +90,8 @@ popd
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/pypi-cairocffi
+cp %{_builddir}/cairocffi-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/pypi-cairocffi/d38a121efe1f7dbbcb12fa4b0ece6ce2fc6e6a15 || :
 pip install --root=%{buildroot} --no-deps --ignore-installed dist/*.whl
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -98,6 +108,10 @@ popd
 
 %files
 %defattr(-,root,root,-)
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/pypi-cairocffi/d38a121efe1f7dbbcb12fa4b0ece6ce2fc6e6a15
 
 %files python
 %defattr(-,root,root,-)
