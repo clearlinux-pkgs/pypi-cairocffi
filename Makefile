@@ -1,5 +1,5 @@
 PKG_NAME := pypi-cairocffi
-URL = https://files.pythonhosted.org/packages/ba/94/372aaeb17dce40a646e5a2df61d10e43a20b6d3021deeab8280eba748077/cairocffi-1.7.0.tar.gz
+URL = https://files.pythonhosted.org/packages/70/c5/1a4dc131459e68a173cbdab5fad6b524f53f9c1ef7861b7698e998b837cc/cairocffi-1.7.1.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
