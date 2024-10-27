@@ -7,7 +7,7 @@
 #
 Name     : pypi-cairocffi
 Version  : 1.7.1
-Release  : 10
+Release  : 11
 URL      : https://files.pythonhosted.org/packages/70/c5/1a4dc131459e68a173cbdab5fad6b524f53f9c1ef7861b7698e998b837cc/cairocffi-1.7.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/70/c5/1a4dc131459e68a173cbdab5fad6b524f53f9c1ef7861b7698e998b837cc/cairocffi-1.7.1.tar.gz
 Summary  : cffi-based cairo bindings for Python
